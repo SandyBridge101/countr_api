@@ -47,11 +47,38 @@ class _LoadingState extends State<Loading> {
           child:Column(
             children: [
               Center(
+                child:Container(
+                  padding: EdgeInsets.all(30),
+                  child: Text("Welcome",
+                  style:TextStyle(
+                  fontWeight:FontWeight.bold,
+                  fontSize: 30,
+                  ),
+                  ),
+                ),
+              ),
+              Center(
+                child:Container(
+                  padding: EdgeInsets.all(30),
+                  child: Text("this app displays data of countries",
+                    style: TextStyle(
+                      fontStyle:FontStyle.italic,
+                    ),
+                  ),
+                ),
+              ),
+              Center(
                 child:SpinKitRotatingCircle(
                   color: Colors.blue,
                   size: 50.0,
                 ),
               ),
+              Center(
+                child:Container(
+                  padding: EdgeInsets.all(30),
+                  child: Text("Loading..."),
+                ),
+              )
             ],
           )
         ),
