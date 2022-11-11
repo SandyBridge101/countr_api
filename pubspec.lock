@@ -130,13 +130,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.2"
-  searchable_listview:
-    dependency: "direct main"
-    description:
-      name: searchable_listview
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.1"
   sky_engine:
     dependency: transitive
     description: flutter
