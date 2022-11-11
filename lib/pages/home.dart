@@ -120,16 +120,21 @@ class _HomeState extends State<Home> {
                     // Provide a builder function. This is where the magic happens.
                     // Convert each item into a widget based on the type of item it is.
                     itemBuilder: (context, index) {
-                      final item = found_items[index].name;
+                      final item = found_items[index];
 
-                      print(item+".....");
+                      print(item.name+".....");
 
 
 
                       return Card(
                           child:ListTile(
-                            title:Text(item),
-                            subtitle:Text("Click here for more information on "+item),
+                            title:Row(
+                              children: [
+                                Text(item.name),
+                                Image.network(found_items[index].flag.toString(),width:20,height:20,),
+                              ],
+                            ),
+                            subtitle:Text("Click here for more information on "+item.name),
                             onTap:(){  Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => details(index: index,)),

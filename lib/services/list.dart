@@ -7,7 +7,7 @@ import './world.dart';
 
 
 List <world_country> countries=<world_country>[
-  world_country(country: 'Japan'),
+  //world_country(country: 'Japan'),
 
 ];
 

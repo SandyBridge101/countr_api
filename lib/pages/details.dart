@@ -17,6 +17,14 @@ class details extends StatelessWidget {
               padding: EdgeInsets.all(50),
               child: Card(
                   child:Center(
+                    child: Image.network(found_items[index].flag.toString())
+                  )
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(50),
+              child: Card(
+                  child:Center(
                     child: Text("Country name:\n"+found_items[index].name,
                       style:TextStyle(fontWeight:FontWeight.bold,
                           fontSize:30),
@@ -39,6 +47,17 @@ class details extends StatelessWidget {
               padding: EdgeInsets.all(50),
               child: Card(
                   child:Center(
+                    child: Text("Language:\n"+found_items[index].language,
+                      style:TextStyle(fontWeight:FontWeight.bold,
+                          fontSize:30),
+                    ),
+                  )
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(50),
+              child: Card(
+                  child:Center(
                     child: Text("Region:\n"+found_items[index].region,
                       style:TextStyle(fontWeight:FontWeight.bold,
                           fontSize:30),
@@ -51,6 +70,17 @@ class details extends StatelessWidget {
               child: Card(
                   child:Center(
                     child: Text("Sq.Area:\n"+found_items[index].area.toString(),
+                      style:TextStyle(fontWeight:FontWeight.bold,
+                          fontSize:30),
+                    ),
+                  )
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(50),
+              child: Card(
+                  child:Center(
+                    child: Text("Currency:\n"+found_items[index].currency,
                       style:TextStyle(fontWeight:FontWeight.bold,
                           fontSize:30),
                     ),
