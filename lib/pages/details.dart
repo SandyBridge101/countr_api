@@ -140,6 +140,21 @@ class details extends StatelessWidget {
                 ),
               ),
             ),
+            Container(
+              padding: EdgeInsets.all(30),
+              child: Card(
+                child:Column(
+                  children: [
+                    Center(
+                      child: Text("Population:\n",style:TextStyle(fontWeight:FontWeight.bold,color:Colors.grey, fontSize:30),),
+                    ),
+                    Center(
+                        child:Text(found_items[index].population.toString(),style:TextStyle(fontWeight:FontWeight.bold, fontSize:30),)
+                    ),
+                  ],
+                ),
+              ),
+            ),
 
           ],
 

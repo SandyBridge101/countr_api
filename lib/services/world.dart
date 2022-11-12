@@ -13,6 +13,7 @@ class world_country {
   String capital='loading..';
   String region='loading..';
   String language='loading..';
+  int population=0;
   double area=0;
   late Uri flag;
 
@@ -21,7 +22,7 @@ class world_country {
 
 
   world_country({required this.name,required this.capital,required this.region,required this.area,
-    required this.language,required this.currency,required this.flag});
+    required this.language,required this.currency,required this.flag,required this.population});
 
 
   Future <void> getdata() async {
