@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import "dart:convert";
-
+import 'package:flutter/services.dart';
 
 
 
@@ -20,25 +20,25 @@ class world_country {
 
 
 
-  world_country({required this.country});
+  world_country({required this.name,required this.capital,required this.region,required this.area,
+    required this.language,required this.currency,required this.flag});
 
 
   Future <void> getdata() async {
     try{
       //make request
-      Response response = await get(Uri.parse('https://restcountries.com/v3.1/name/$country/'));
-
+      http.Response response = await http.get(Uri.parse('https://restcountries.com/v2/all?fields=name,capital,currencies'));
       List data = jsonDecode(response.body);
 
-      name = data[0]['name']['common'];
-      capital=data[0]['capital'][0];
-      region=data[0]['region'];
-      area=data[0]['area'];
-      c=data[0]['currencies'];
-      l=data[0]['languages'];
-      currency=c.values.first['name'];
-      language=l.values.first;
-      flag=Uri.parse(data[0]['flags']['png']);
+      //name = country;
+      //capital=data[0]['capital'][0];
+      //region=data[0]['region'];
+      //area=data[0]['area'];
+      //c=data[0]['currencies'];
+      //l=data[0]['languages'];
+      //currency=c.values.first['name'];
+      //language=l.values.first;
+      //flag=Uri.parse(data[0]['flags']['png']);
       //print(name);
     }catch(e){
       print('caught error:$e');

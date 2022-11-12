@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:untitled1/services/list.dart';
 import 'package:untitled1/pages/loading.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../services/world.dart';
 import './details.dart';
 
@@ -13,8 +15,6 @@ class Home extends StatefulWidget {
   @override
   State<Home> createState() => _HomeState();
 
-
-
 }
 
 class _HomeState extends State<Home> {
@@ -24,9 +24,47 @@ class _HomeState extends State<Home> {
   initState() {
     // at the beginning, all users are shown
     found_items = countries;
-    //set_countrydata();
     super.initState();
+  }
 
+  Future<void> load_data(int index)async{
+
+      await countries[index].getdata();
+  }
+
+  void slideSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            color: Color(0xFF737373),
+            child: Container(
+              height: 180,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10)),
+                color: Colors.white,
+              ),
+              child:SingleChildScrollView(
+                child:Container(
+                  padding:EdgeInsets.all(20),
+                  child:Column(
+                    children:<Widget> [
+                      Text("Filter by"),
+                      OutlinedButton(onPressed:(){setState((){found_items = countries;});}, child:Text("All")),
+                      OutlinedButton(onPressed:(){region_filter("Americas");}, child:Text("Americas")),
+                      OutlinedButton(onPressed:(){region_filter("Europe");}, child:Text("Europe")),
+                      OutlinedButton(onPressed:(){region_filter("Oceania");}, child:Text("Oceania")),
+                      OutlinedButton(onPressed:(){region_filter("Asia");}, child:Text("Asia")),
+                      OutlinedButton(onPressed:(){region_filter("Africa");}, child:Text("Africa")),
+                    ],
+                  ),
+                ),
+              )
+            ),
+          );
+        });
   }
 
   void region_filter(String enteredKeyword) {
@@ -82,86 +120,118 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
+        title:Container(
+          alignment: Alignment.centerLeft,
+          child:Text("Explore",
+            textDirection: TextDirection.ltr,
+            style:GoogleFonts.pacifico(fontSize: 25,foreground:Paint()),
+          ),
+        ),
+
+        backgroundColor:Colors.white,
         centerTitle: true,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child:SafeArea(
-          child:Column(
-            children: <Widget>[
+      body:SingleChildScrollView(
+        child:Column(
+          children: [
+            SingleChildScrollView(
 
-              TextField(
-                onChanged: (value) => _runFilter(value),
-                decoration: const InputDecoration(
-                    labelText: 'Search by country name', suffixIcon: Icon(Icons.search)),
-              ),
+              child:SafeArea(
+                child:Column(
+                  children: <Widget>[
 
-              Card(
-                child:ExpansionTile(title: Text("Filter by region"),
-                  children:<Widget> [
-                    OutlinedButton(onPressed:(){setState((){found_items = countries;});}, child:Text("All")),
-                    OutlinedButton(onPressed:(){region_filter("Americas");}, child:Text("Americas")),
-                    OutlinedButton(onPressed:(){region_filter("Europe");}, child:Text("Europe")),
-                    OutlinedButton(onPressed:(){region_filter("Oceania");}, child:Text("Oceania")),
-                    OutlinedButton(onPressed:(){region_filter("Asia");}, child:Text("Asia")),
-                    OutlinedButton(onPressed:(){region_filter("Africa");}, child:Text("Africa")),
+                    Container(
+                      padding:EdgeInsets.all(20),
+                      child:Column(
+                        children: [
+                          TextField(
+                            onChanged: (value) => _runFilter(value),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius:BorderRadius.circular(10),
+                              ),
+                                labelText: 'Search by country name', suffixIcon: Icon(Icons.search)),
+                          ),
+
+                          Container(
+                            child: ElevatedButton.icon(icon:Icon(Icons.filter_alt),onPressed: slideSheet, label: Text("Filter"),),
+                            alignment:Alignment.centerRight,
+                          ),
+                        ],
+                      ),
+                    ),
+
+
+
+
+                    Container(
+                        height: 800,
+                        width:500,
+                        child:found_items.isNotEmpty?
+                        ListView.builder(
+                          // Let the ListView know how many items it needs to build.
+                          itemCount:found_items.length,
+                          // Provide a builder function. This is where the magic happens.
+                          // Convert each item into a widget based on the type of item it is.
+                          itemBuilder: (context, index) {
+                            final item = found_items[index];
+                            print(item.name+".....");
+                            load_data(index);
+
+                            return Card(
+                                child:ListTile(
+                                  title:Row(
+                                    children: [
+                                      Container(
+                                        width:30,
+                                        height: 30,
+                                        padding:EdgeInsets.all(20),
+                                        decoration:BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                                image: NetworkImage(found_items[index].flag.toString()),
+                                                fit: BoxFit.fill
+                                            )
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.all(20),
+                                        child: Text(item.name),
+                                      ),
+                                    ],
+                                  ),
+
+                                  onTap:(){  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => details(index: index,)),
+                                  );},
+                                )
+                            );
+                          },
+                        ):Align(
+                          alignment: Alignment.topRight,
+                          child: Container(
+                            width: 50,
+                            height: 50,
+                            child: FloatingActionButton.extended(
+                              label:Text("Back"),
+                              onPressed:(){
+                                Navigator.pushNamed(context,'/home');},
+                            ),
+                          ),
+                        )
+                    ),
+
                   ],
                 ),
               ),
+            ),
 
-              Container(
-                  height: 500,
-                  width:500,
-                  child:found_items.isNotEmpty?
-                  ListView.builder(
-                    // Let the ListView know how many items it needs to build.
-                    itemCount:found_items.length,
-                    // Provide a builder function. This is where the magic happens.
-                    // Convert each item into a widget based on the type of item it is.
-                    itemBuilder: (context, index) {
-                      final item = found_items[index];
-
-                      print(item.name+".....");
-
-
-
-                      return Card(
-                          child:ListTile(
-                            title:Row(
-                              children: [
-                                Text(item.name),
-                                Image.network(found_items[index].flag.toString(),width:20,height:20,),
-                              ],
-                            ),
-                            subtitle:Text("Click here for more information on "+item.name),
-                            onTap:(){  Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => details(index: index,)),
-                            );},
-                          )
-                      );
-                    },
-                  ):Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                      width: 50,
-                      height: 50,
-                      child: FloatingActionButton.extended(
-                        label:Text("Back"),
-                        onPressed:(){
-                          Navigator.pushNamed(context,'/home');},
-
-
-                      ),
-                    ),
-                  )
-              ),
-
-            ],
-          ),
+          ],
         ),
       )
+
     );
   }
 }

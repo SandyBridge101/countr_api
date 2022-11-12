@@ -15,14 +15,18 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
   
   String country='loading..';
+  String current='loading..';
 
   Future<void> set_countrydata() async {
-    world_country instance=world_country( country:'Barbados');
-    await instance.getdata();
+    //world_country instance=world_country( country:'Barbados');
+    //await instance.getdata();
 
-    await generate();
+    await generate(current);
+    await new Future.delayed(const Duration(seconds: 5));
 
     print(countries);
+
+
 
 
 
@@ -30,12 +34,11 @@ class _LoadingState extends State<Loading> {
 
   }
 
-
-
   @override
   void initState(){
     super.initState();
     set_countrydata();
+
   }
 
   @override
@@ -76,7 +79,7 @@ class _LoadingState extends State<Loading> {
               Center(
                 child:Container(
                   padding: EdgeInsets.all(30),
-                  child: Text("Loading..."),
+                  child: Text("Extracting data.."+current),
                 ),
               )
             ],
@@ -88,13 +91,13 @@ class _LoadingState extends State<Loading> {
 }
 
 Future<void> set_countrydata() async {
-  world_country instance=world_country( country:'Barbados');
-  await instance.getdata();
+  //world_country instance=world_country( country:'Barbados');
+  //await instance.getdata();
+  String c=" ";
 
-  await generate();
+  await generate(c);
 
   print(countries);
-
 
 }
 
