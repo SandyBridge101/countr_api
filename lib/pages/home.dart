@@ -179,38 +179,45 @@ class _HomeState extends State<Home> {
                             print(item.name+".....");
                             load_data(index);
 
-                            return Card(
-                                child:ListTile(
-                                  title:Row(
-                                    children: [
-                                      Container(
-                                        width:30,
-                                        height: 30,
-                                        padding:EdgeInsets.all(20),
-                                        decoration:BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            image: DecorationImage(
-                                                image: NetworkImage(found_items[index].flag.toString()),
-                                                fit: BoxFit.fill
-                                            )
-                                        ),
+                            return Center(
+                              child: Card(
+                                elevation:5,
+                                child:SizedBox(
+                                    child:ListTile(
+                                      title:Row(
+                                        children: [
+                                          Container(
+                                            width:30,
+                                            height: 30,
+                                            padding:EdgeInsets.all(20),
+                                            decoration:BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                image: DecorationImage(
+                                                    image: NetworkImage(found_items[index].flag.toString()),
+                                                    fit: BoxFit.fill
+                                                )
+                                            ),
+                                          ),
+                                          Container(
+                                            padding: EdgeInsets.all(20),
+                                            width:300,
+                                            height: 100,
+                                            child: Text(item.name),
+                                          ),
+                                        ],
                                       ),
-                                      Container(
-                                        padding: EdgeInsets.all(20),
-                                        child: Text(item.name),
-                                      ),
-                                    ],
-                                  ),
 
-                                  onTap:(){  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => details(index: index,)),
-                                  );},
-                                )
+                                      onTap:(){  Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => details(index: index,)),
+                                      );},
+                                    )
+                                ),
+                              ),
                             );
                           },
                         ):Align(
-                          alignment: Alignment.topRight,
+                          alignment: Alignment.topCenter,
                           child: Container(
                             width: 50,
                             height: 50,
