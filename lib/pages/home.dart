@@ -198,12 +198,11 @@ class _HomeState extends State<Home> {
                                                 )
                                             ),
                                           ),
-                                          Container(
+                                          Expanded(child:                                          Container(
                                             padding: EdgeInsets.all(20),
-                                            width:300,
-                                            height: 100,
                                             child: Text(item.name),
                                           ),
+                                          )
                                         ],
                                       ),
 

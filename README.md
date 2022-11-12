@@ -34,6 +34,8 @@ http for consumption of data from the api.
 flutter_spinkit for animations used in the application.
 expansion_tile_card was used to implement the expandable card for the filter section.
 google_fonts for adding new fonts to the project
+internet_connection_checker to check connectivity
+fluttertoast for displaying toasts
 
 #If i had more time i would 
 expand the filter and search features to make the list
